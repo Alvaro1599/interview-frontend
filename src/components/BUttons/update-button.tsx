@@ -49,7 +49,7 @@ function UpdateButton(props:{id:string,body:{name: string, description: string, 
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close
                                 </button>
-                                <button type="button" className="btn btn-primary" onClick={updateProducts}>Actualizar datos</button>
+                                <button type="button" className="btn btn-primary" onClick={updateProducts}>Update</button>
                             </div>
                         </div>
                     </div>
