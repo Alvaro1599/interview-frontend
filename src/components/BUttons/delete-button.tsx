@@ -1,15 +1,14 @@
 import React from 'react';
+import {deleteProductService} from "@/services/productService";
+import {router} from "next/client";
+import {useRouter} from "next/router";
 
 function DeleteButton(props:{id:string}) {
+    const router = useRouter()
     async function handleDelete(id:string){
         try {
-            await fetch("http://localhost:3000/product/"+id, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                mode:"no-cors"
-            })
+            await deleteProductService(id)
+            router.reload()
         }
         catch (e) {
             throw e

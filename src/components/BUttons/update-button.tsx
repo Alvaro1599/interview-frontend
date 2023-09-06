@@ -1,19 +1,27 @@
 import React, {useState} from 'react';
-import axios from 'axios';
-function UpdateButton(props:{id:string}) {
-    const [input, setInput] = useState({name: "", description: "", img: ""});
+import {updateProductService} from "@/services/productService";
+import {router} from "next/client";
+import {useRouter} from "next/router";
+function UpdateButton(props:{id:string,body:{name: string, description: string, img:string}}) {
+    const [input, setInput] = useState(props.body);
+    const router=useRouter()
 
-    function handlestate(data:React.ChangeEvent<HTMLInputElement>) {
+    async function updateProducts(){
+        try {
+            await updateProductService(props.id,input)
+            router.reload()
+        }
+        catch (e) {
+            console.log(e)
+        }
+    }
+    function handleState(data:React.ChangeEvent<HTMLInputElement>) {
         setInput({...input,[data.currentTarget.id]:data.currentTarget.value})
     }
-    async function handleUpdate() {
-
-    }
-
         return (
             <>
                 <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Launch demo modal
+                    Actualizar datos
                 </button>
 
                 <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel"
@@ -27,21 +35,21 @@ function UpdateButton(props:{id:string}) {
                             <div className="modal-body">
                                 <div>
                                     <label className={"text-dark "}>Name:</label>
-                                    <input type="text" id="name" onChange={handlestate}/>
+                                    <input type="text" value={input.name} id="name" onChange={handleState}/>
                                 </div>
                                 <div>
                                     <label className={"text-dark"}>Description:</label>
-                                    <input type="text" id="description" onChange={handlestate}/>
+                                    <input type="text" value={input.description} id="description" onChange={handleState}/>
                                 </div>
                                 <div>
                                     <label className={"text-dark"}>img:</label>
-                                    <input type="text" id="img" onChange={handlestate}/>
+                                    <input type="text" value={input.img} id="img" onChange={handleState}/>
                                 </div>
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close
                                 </button>
-                                <button type="button" className="btn btn-primary" onClick={handleUpdate}>Create Product</button>
+                                <button type="button" className="btn btn-primary" onClick={updateProducts}>Actualizar datos</button>
                             </div>
                         </div>
                     </div>
