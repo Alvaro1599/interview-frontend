@@ -18,7 +18,7 @@ function DeleteButton(props:{id:string}) {
 
     }
     return (
-        <button type="button" className="btn btn-outline-danger" onClick={()=>handleDelete(props.id)}>Eliminar</button>
+        <button type="button" className="btn btn-outline-danger" onClick={()=>handleDelete(props.id)}>Delete</button>
     );
 }
 
